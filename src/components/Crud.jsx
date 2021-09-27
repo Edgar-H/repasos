@@ -12,7 +12,6 @@ const Crud = () => {
     e.preventDefault();
     if (!name.trim()) {
       setError("FalName field empty");
-      console.log("FalName field empty");
       return;
     }
     const newName = {
@@ -38,12 +37,22 @@ const Crud = () => {
 
   const editName = (e) => {
     e.preventDefault();
+    if (!name.trim()) {
+      setError("FalName field empty");
+      return;
+    }
     const newArray = listNames.map((item) =>
       item.id === id ? { id: id, namer: name } : item
     );
     setListNames(newArray);
     setModEdit(false);
     setName("");
+  };
+
+  const cancelEdit = () => {
+    setModEdit(false);
+    setName("");
+    setError(null);
   };
 
   return (
@@ -68,12 +77,30 @@ const Crud = () => {
               value={name}
             />
             <div className="flex flex-wrap my-2">
-              <button
-                className="btn w-full rounded bg-blue-600 px-4 py-2 text-white font-medium "
-                type="submit"
-              >
-                {modEdit ? "Edit" : "Register"}
-              </button>
+              {modEdit ? (
+                <>
+                  <button
+                    className="btn w-full rounded bg-green-600 px-4 py-2 text-white font-medium "
+                    type="submit"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn w-full rounded bg-gray-400 px-4 py-2 text-white font-medium mt-2"
+                    onClick={cancelEdit}
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="btn w-full rounded bg-blue-600 px-4 py-2 text-white font-medium "
+                  type="submit"
+                >
+                  Register
+                </button>
+              )}
+
               {error != null ? (
                 <div className="text-red-400 text-xs bg-red-200 mt-2 px-4 py-1 rounded mx-auto italic">
                   {error}
