@@ -56,21 +56,22 @@ const Crud = () => {
   };
 
   return (
-    <div className="container rounded shadow-lg mx-auto mt-8 p-4 bg-gray-300">
-      <h2 className="text-green-700 text-4xl font-bold text-center">CRUD</h2>
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 p-2">
+    <div className="container rounded shadow-lg mx-auto mt-8 p-4">
+      <h2 className="text-yellow-500 text-3xl font-medium text-center capitalize">
+        Registration of something
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 mt-6">
         <div className="">
-          <h4 className="text-center text-2xl font-medium">Add new name </h4>
-          <form onSubmit={modEdit ? editName : savedName} className="px-4 my-6">
-            <label className="text-gray-700 font-medium text-xl" htmlFor="">
-              Name
+          <form onSubmit={modEdit ? editName : savedName} className="px-4">
+            <label className="text-gray-700 font-medium text-lg" htmlFor="">
+              Add new name
             </label>
             <input
-              className="w-full p-2 rounded outline-none	"
+              className="w-full p-2 outline-none text-gray-600"
               type="text"
               name=""
               id=""
-              placeholder="Name LastName"
+              placeholder="Something"
               onChange={(e) => {
                 setName(e.target.value);
               }}
@@ -111,21 +112,38 @@ const Crud = () => {
             </div>
           </form>
         </div>
-        <div className="px-6">
-          <h4 className="text-center text-2xl font-medium">List of names</h4>
-          <ul className="px-4 my-6">
+        <div className="px-3">
+          <h4 className="text-center text-gray-700 font-medium text-xl">
+            List of names
+          </h4>
+          <ul className="my-4">
             {listNames.length > 0 ? (
               listNames.map((item) => (
                 <li
-                  className="text-gray-700 text-2xl font-medium list-disc flex justify-between"
+                  className="text-gray-700 text-lg flex justify-between"
                   key={item.id}
                 >
                   <span className="capitalize">{item.namer}</span>
                   <div className="flex">
-                    <i
-                      className="fas fa-edit mr-4 cursor-pointer text-green-600 hover:text-green-500"
-                      onClick={() => editActive(item)}
-                    ></i>
+                    {modEdit ? (
+                      id === item.id ? (
+                        <i
+                          className="fas fa-edit mr-4 cursor-pointer text-yellow-600 hover:text-red-500"
+                          onClick={() => editActive(item)}
+                        ></i>
+                      ) : (
+                        <i
+                          className="fas fa-edit mr-4 cursor-pointer text-green-600 hover:text-green-500"
+                          onClick={() => editActive(item)}
+                        ></i>
+                      )
+                    ) : (
+                      <i
+                        className="fas fa-edit mr-4 cursor-pointer text-green-600 hover:text-green-500"
+                        onClick={() => editActive(item)}
+                      ></i>
+                    )}
+
                     <i
                       className="fas fa-trash-alt cursor-pointer text-red-500 hover:text-red-400"
                       onClick={() => deleteItem(item.id)}
