@@ -56,7 +56,7 @@ const Crud = () => {
   };
 
   return (
-    <div className="container rounded shadow-lg mx-auto mt-8 p-4">
+    <div className="container">
       <h2 className="text-yellow-500 text-3xl font-medium text-center capitalize">
         Registration of something
       </h2>
@@ -81,13 +81,13 @@ const Crud = () => {
               {modEdit ? (
                 <>
                   <button
-                    className="btn w-full rounded bg-green-600 px-4 py-2 text-white font-medium "
+                    className="btn w-full rounded bg-green-600 hover:bg-green-500 px-4 py-2 text-white font-medium "
                     type="submit"
                   >
                     Edit
                   </button>
                   <button
-                    className="btn w-full rounded bg-gray-400 px-4 py-2 text-white font-medium mt-2"
+                    className="btn w-full rounded bg-gray-400 hover:bg-gray-300 px-4 py-2 text-white font-medium mt-2"
                     onClick={cancelEdit}
                   >
                     Cancel
@@ -95,7 +95,7 @@ const Crud = () => {
                 </>
               ) : (
                 <button
-                  className="btn w-full rounded bg-blue-600 px-4 py-2 text-white font-medium "
+                  className="btn w-full rounded bg-blue-600 hover:bg-blue-500 px-4 py-2 text-white font-medium "
                   type="submit"
                 >
                   Register
