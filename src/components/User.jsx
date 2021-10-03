@@ -16,7 +16,7 @@ const User = () => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  });
 
   const { name, username, email, phone, website } = user;
 
