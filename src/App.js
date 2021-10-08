@@ -4,36 +4,38 @@ import Counter from "./components/Counter";
 import Crud from "./components/Crud";
 import Users from "./components/Users";
 import User from "./components/User";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
 
 const App = () => {
   return (
     <Router>
       <nav className="container mx-auto flex justify-center py-4">
-        <Link className="btn-navbar" to="/">
+        <Link to="/" className="btn-navbar">
           Home
         </Link>
-        <Link className="btn-navbar" to="/crud">
+        <Link to="/crud" className="btn-navbar">
           Crud
         </Link>
-        <Link className="btn-navbar" to="/users">
+        <Link to="/users" className="btn-navbar">
           Users
+        </Link>
+        <Link to="/signup" className="btn-navbar">
+          Sign up
+        </Link>
+        <Link to="/login" className="btn-navbar">
+          Login
         </Link>
       </nav>
 
       <main className="container mx-auto mt-8 p-4 rounded shadow-lg">
         <Switch>
-          <Route exact path="/">
-            <Counter />
-          </Route>
-          <Route path="/crud">
-            <Crud />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/user/:id">
-            <User />
-          </Route>
+          <Route exact path="/" component={Counter} />
+          <Route path="/crud" component={Crud} />
+          <Route path="/users" component={Users} />
+          <Route path="/user/:id" component={User} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
         </Switch>
       </main>
     </Router>

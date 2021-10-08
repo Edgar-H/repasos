@@ -1,0 +1,31 @@
+.form-group {
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+.form-group div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.form-group div label,
+.form-group div input {
+  width: 100%;
+  padding: 4px 6px;
+}
+
+.form-group div label {
+  color: #505050;
+}
+
+.form-group div input {
+  border-radius: 4px;
+  outline: none;
+  color: #626262;
+  background: #f8f8f8;
+}
+/*# sourceMappingURL=style.css.map */

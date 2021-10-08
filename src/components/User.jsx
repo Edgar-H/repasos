@@ -23,11 +23,7 @@ const User = () => {
   return (
     <div className="flex justify-center items-center py-8">
       <div className="max-w-xs rounded-full overflow-hidden">
-        <img
-          /* src={`https://source.unsplash.com/user/erondu`} */
-          src={`https://i.pravatar.cc/62${id}`}
-          alt={`${username}`}
-        />
+        <img src={`https://i.pravatar.cc/62${id}`} alt={`${username}`} />
       </div>
       <div className="ml-4 text-gray-900">
         <p className="text-2xl font-medium mb-6">{name}</p>

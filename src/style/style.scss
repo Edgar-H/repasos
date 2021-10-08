@@ -1,0 +1,23 @@
+.form-group {
+  max-width: 50%;
+  margin: 0 auto;
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    label,
+    input {
+      width: 100%;
+      padding: 4px 6px;
+    }
+    label {
+      color: #505050;
+    }
+    input {
+      border-radius: 4px;
+      outline: none;
+      color: #626262;
+      background: #f8f8f8;
+    }
+  }
+}
