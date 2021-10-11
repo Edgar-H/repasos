@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import { app } from './services/firebaseConfig';
+import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Counter from './components/Counter';
 import Crud from './components/Crud';
 import Users from './components/Users';
 import User from './components/User';
 import Signup from './components/Signup';
 import Login from './components/Login';
+import Garage from './components/Garage';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const App = () => {
@@ -15,12 +15,10 @@ const App = () => {
   useEffect(() => {
     onAuthStateChanged(getAuth(), (user) => {
       if (user) {
-        console.log(user);
         setUserOk(user.email);
       }
     });
   }, []);
-  console.log(userOk);
 
   const logout = () => {
     const auth = getAuth();
@@ -42,6 +40,9 @@ const App = () => {
             <Link to='/crud' className='btn-navbar'>
               Crud
             </Link>
+            <Link to='/Garage' className='btn-navbar'>
+              Garage
+            </Link>
             <button
               onClick={logout}
               className='bg-red-600 hover:bg-red-500 px-4 py-2 rounded text-yellow-50 font-medium'
@@ -59,8 +60,9 @@ const App = () => {
       <main className='container mx-auto mt-8 p-4 rounded shadow-lg'>
         <Switch>
           <Route exact path='/' component={Counter} />
-          <Route path='/crud' component={Crud} />
           <Route path='/users' component={Users} />
+          <Route path='/crud' component={Crud} />
+          <Route path='/Garage' component={Garage} />
           <Route path='/user/:id' component={User} />
           <Route path='/signup' component={Signup} />
           <Route path='/login' component={Login} />

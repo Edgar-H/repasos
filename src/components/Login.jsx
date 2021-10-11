@@ -43,7 +43,7 @@ const Login = () => {
     <div className='flex'>
       <div className='w-1/2'>
         <p className='text-center font-medium text-2xl mb-6'>Sign in</p>
-        <form onSubmit={signIn} className='form-group '>
+        <form onSubmit={signIn} className='form-group'>
           {error && <p className='error-message'>{error}</p>}
           {success && <p className='success-message '>{success}</p>}
           <div className='email'>

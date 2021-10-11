@@ -11,8 +11,7 @@ const Crud = () => {
   const savedName = (e) => {
     e.preventDefault();
     if (!name.trim()) {
-      setError('FalName field empty');
-      return;
+      return setError('FalName field empty');
     }
     const newName = {
       id: uniqid(),
@@ -38,8 +37,7 @@ const Crud = () => {
   const editName = (e) => {
     e.preventDefault();
     if (!name.trim()) {
-      setError('FalName field empty');
-      return;
+      return setError('FalName field empty');
     }
     const newArray = listNames.map((item) =>
       item.id === id ? { id: id, namer: name } : item

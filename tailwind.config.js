@@ -1,19 +1,18 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  purge: [],
-  // purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Roboto", ...defaultTheme.fontFamily.sans],
+        sans: ['Roboto', ...defaultTheme.fontFamily.sans],
       },
     },
   },
   variants: {
     extend: {
-      scale: ["active", "group-hover"],
+      scale: ['active', 'group-hover'],
     },
   },
   plugins: [],

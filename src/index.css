@@ -26,3 +26,7 @@
 .option-login {
   @apply text-center font-light text-sm leading-3 text-gray-600 my-12;
 }
+
+.fx-center {
+  @apply flex justify-center;
+}
