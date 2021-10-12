@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../services/firebaseConfig';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from 'firebase/firestore';
 
 const Garage = () => {
   const [data, setData] = useState({}),
     [error, setError] = useState(''),
     [success, setSuccess] = useState(''),
-    [inventory, setInventory] = useState();
+    [inventory, setInventory] = useState(),
+    [id, setId] = useState(),
+    [modEdit, setModEdit] = useState(false);
 
   const handlerChange = ({ name, value }) => {
     setData({ ...data, [name]: value });
@@ -23,6 +32,8 @@ const Garage = () => {
     }
   };
 
+  const { brand, model, version, color, year, price } = data;
+
   const uploadImg = (e) => {
     e.preventDefault();
     console.log('Hello');
@@ -30,7 +41,6 @@ const Garage = () => {
 
   const handlerSubmit = async (e) => {
     e.preventDefault();
-    const { brand, model, version, color, year, price } = data;
     if (!brand || !model || !version || !color) {
       return setError('Capture all data');
     }
@@ -58,6 +68,40 @@ const Garage = () => {
     getInventory();
   }, []);
 
+  const deleteCar = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'inventory', id));
+      getInventory();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const editCar = async (e) => {
+    e.preventDefault();
+    try {
+      const getCar = doc(db, 'inventory', id);
+      await updateDoc(getCar, data);
+      console.log('Hello edit');
+      setModEdit(false);
+      setData('');
+      getInventory();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const modeEditor = async (id) => {
+    setModEdit(true);
+    setId(id);
+    inventory.forEach((i) => i.id === id && setData(i));
+  };
+
+  const cancelEdit = () => {
+    setData('');
+    setModEdit(false);
+  };
+
   return (
     <>
       <h3 className='text-center text-3xl font-semibold text-gray-700 mb-4'>
@@ -65,7 +109,7 @@ const Garage = () => {
       </h3>
 
       <form
-        onSubmit={handlerSubmit}
+        onSubmit={modEdit ? editCar : handlerSubmit}
         className='pb-8 border-b-4 border-blue-200'
       >
         <div className='form-container flex flex-wrap justify-center'>
@@ -160,12 +204,29 @@ const Garage = () => {
           )}
         </div>
         <div className='fx-center'>
-          <button
-            type='submit'
-            className='bg-blue-600 w-1/4 text-white font-medium py-1 rounded-md'
-          >
-            Save
-          </button>
+          {modEdit ? (
+            <>
+              <button
+                className='bg-green-600 hover:bg-green-500 w-2/12  text-white font-medium py-1 rounded-md mr-5'
+                type='submit'
+              >
+                Save edit
+              </button>
+              <button
+                className='bg-gray-400 hover:bg-gray-300 w-2/12 text-white font-medium py-1 rounded-md'
+                onClick={cancelEdit}
+              >
+                Cancel
+              </button>
+            </>
+          ) : (
+            <button
+              type='submit'
+              className='bg-blue-600 w-1/4 text-white font-medium py-1 rounded-md'
+            >
+              Save new data
+            </button>
+          )}
         </div>
       </form>
       <div className='block'>
@@ -176,8 +237,8 @@ const Garage = () => {
           {inventory ? (
             inventory.map((i) => (
               <div
-                className='stock-item w-96 max-h-36 flex items-center shadow-sm ring-gray-400 mr-2 mb-2'
                 key={i.id}
+                className='stock-item w-96 max-h-36 flex items-center shadow-sm ring-gray-400 mr-2 mb-2'
               >
                 <div className='bg-yellow-500 w-1/3'>
                   <img
@@ -187,6 +248,30 @@ const Garage = () => {
                 </div>
                 <div className='info text-center px-1 text-gray-700 uppercase'>
                   {i.brand} {i.model} {i.version} {i.year} {i.color} {i.price}
+                </div>
+                <div className='options'>
+                  {modEdit ? (
+                    id === i.id ? (
+                      <i
+                        className='fas fa-edit mr-4 cursor-pointer text-yellow-600 hover:text-red-500'
+                        onClick={() => modeEditor(i.id)}
+                      ></i>
+                    ) : (
+                      <i
+                        className='fas fa-edit mr-4 cursor-pointer text-green-600 hover:text-green-500'
+                        onClick={() => modeEditor(i.id)}
+                      ></i>
+                    )
+                  ) : (
+                    <i
+                      className='fas fa-edit mr-4 cursor-pointer text-green-600 hover:text-green-500'
+                      onClick={() => modeEditor(i.id)}
+                    ></i>
+                  )}
+                  <i
+                    onClick={() => deleteCar(i.id)}
+                    className='fas fa-trash-alt cursor-pointer text-red-500 hover:text-red-400'
+                  ></i>
                 </div>
               </div>
             ))
